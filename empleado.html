@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Panel de Empleado</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  
+</head>
+<body>
+    <div class="sidebar">
+        <h3>SGRH</h3>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#" onclick="volverAlMenu()">Página de inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="mostrarSeccion('quejas')">Quejas y sugerencias</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="mostrarSeccion('cuenta')">Información de Cuenta</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html">Salir</a></li>
+        </ul>
+    </div>
+
+  <div class="content">
+    <h4>Rol: Empleado</h4>
+    <div class="notification">
+      <strong>Canal de notificaciones</strong>
+      <p>Se le informa a todo el personal que, por motivos administrativos, mañana se ingresará 1 hora más tarde.</p>
+    </div>
+
+    <div id="opciones">
+      <h5 class="mt-4">Opciones</h5>
+      <button class="btn btn-primary btn-sm d-block w-auto mb-2" onclick='mostrarSeccion("informacion")'>Consultar Información</button>
+      <button class="btn btn-primary btn-sm d-block w-auto mb-2" onclick='mostrarSeccion("permisos")'>Permisos</button>
+      <button class="btn btn-primary btn-sm d-block w-auto mb-2" onclick='mostrarSeccion("certificacion")'>Registro y Certificación</button>
+    </div>
+
+    <!-- Secciones -->
+    <div id="informacion" class="section-content mt-4">
+        <h5>Consultar Información</h5>
+        <form>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Nombre completo</label>
+              <input type="text" class="form-control" value="Juan Carlos Gómez" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Documento</label>
+              <input type="text" class="form-control" value="123456789" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">ID</label>
+              <input type="text" class="form-control" value="EMP1023" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Fecha de contratación</label>
+              <input type="date" class="form-control" value="2021-04-15" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Estado</label>
+              <input type="text" class="form-control" value="Activo" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" value="juan.gomez@example.com" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Salario</label>
+              <input type="text" class="form-control" value="$3.000.000" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Cargo</label>
+              <input type="text" class="form-control" value="Analista de Datos" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">EPS</label>
+              <input type="text" class="form-control" value="Sanitas" readonly>
+            </div>
+          </div>
+      
+          <h6 class="mt-4">Historial de Reportes</h6>
+          <ul class="list-group mb-3">
+            <li class="list-group-item">Reporte 1: Ausencia justificada - 2023-08-21</li>
+            <li class="list-group-item">Reporte 2: Llegada tardía - 2023-10-03</li>
+          </ul>
+      
+          
+      
+          <button type="button" class="btn btn-secondary mt-3" onclick="volverAlMenu()">Volver</button>
+        </form>
+      </div>
+      
+      <!-- Sección Permisos -->
+      <div id="permisos" class="section-content mt-4">
+        <h5>Solicitud de Permiso</h5>
+        <form>
+          <div class="mb-3">
+            <label for="asuntoPermiso" class="form-label">Asunto del permiso</label>
+            <input type="text" class="form-control" id="asuntoPermiso" placeholder="Ej. Cita médica" required>
+          </div>
+          <div class="mb-3">
+            <label for="razonPermiso" class="form-label">Razón del permiso</label>
+            <textarea class="form-control" id="razonPermiso" rows="5" placeholder="Explica la razón detalladamente" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Enviar solicitud</button>
+          <button type="button" class="btn btn-secondary ms-2" onclick="volverAlMenu()">Volver</button>
+        </form>
+      </div>
+      
+      <!-- Sección Certificaciones -->
+      <div id="certificacion" class="section-content mt-4">
+        <h5>Certificaciones</h5>
+        <ul class="list-group mb-3">
+          <li class="list-group-item">Certificado de habilidades blandas - Subido el 2023-05-20</li>
+          <li class="list-group-item">Certificado de seguridad laboral - Subido el 2024-01-10</li>
+        </ul>
+        <div class="mb-3">
+          <label class="form-label">Cargar nuevo certificado</label>
+          <input type="file" class="form-control">
+        </div>
+        <button type="button" class="btn btn-secondary mt-3" onclick="volverAlMenu()">Volver</button>
+      </div>
+
+    <div id="quejas" class="section-content mt-4">
+      <h5>Quejas y sugerencias</h5>
+      <p>Envíanos tus comentarios para mejorar el sistema.</p>
+      <form id="formQuejas" onsubmit='enviarQueja(event)'>
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Asunto:</label>
+          <input type="text" class="form-control" id="nombre" required />
+        </div>
+        <div class="mb-3">
+          <label for="mensaje" class="form-label">Mensaje:</label>
+          <textarea class="form-control" id="mensaje" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Enviar</button>
+        <button type="button" class="btn btn-secondary ms-2" onclick='volverAlMenu()'>Volver</button>
+      </form>
+      <div id="mensajeConfirmacion" class="alert alert-success mt-3 d-none">
+        ¡Gracias por tu mensaje! Ha sido enviado correctamente.
+      </div>
+    </div>
+
+    <div id="cuenta" class="section-content mt-4">
+      <h5>Información de Cuenta</h5>
+      <p>Consulta y modifica los datos de tu cuenta.</p>
+      <form id="formCuenta" onsubmit='guardarCambiosCuenta(event)'>
+        <div class="mb-3">
+          <label for="nuevoNombres" class="form-label">Nombres actuales: <strong>Juan Carlos</strong></label>
+          <input type="text" class="form-control" id="nuevoNombres" placeholder="Nuevos nombres" />
+        </div>
+        <div class="mb-3">
+          <label for="nuevoApellidos" class="form-label">Apellidos actuales: <strong>Gómez Rodríguez</strong></label>
+          <input type="text" class="form-control" id="nuevoApellidos" placeholder="Nuevos apellidos" />
+        </div>
+        <div class="mb-3">
+          <label for="nuevoCorreo" class="form-label">Correo electrónico actual: <strong>juan.gomez@example.com</strong></label>
+          <input type="email" class="form-control" id="nuevoCorreo" placeholder="Nuevo correo electrónico" />
+        </div>
+        <div class="mb-3">
+          <label for="nuevoTelefono" class="form-label">Teléfono actual: <strong>3216549870</strong></label>
+          <input type="text" class="form-control" id="nuevoTelefono" placeholder="Nuevo teléfono" />
+        </div>
+        <div class="mb-3">
+          <label for="nuevaDireccion" class="form-label">Dirección actual: <strong>Calle 45 #12-34</strong></label>
+          <input type="text" class="form-control" id="nuevaDireccion" placeholder="Nueva dirección" />
+        </div>
+        <div class="mb-3">
+          <label for="nuevaFechaNacimiento" class="form-label">Fecha de nacimiento actual: <strong>1990-06-15</strong></label>
+          <input type="date" class="form-control" id="nuevaFechaNacimiento" />
+        </div>
+        <div class="mb-3">
+          <label for="nuevaCiudad" class="form-label">Ciudad actual: <strong>Bogotá</strong></label>
+          <input type="text" class="form-control" id="nuevaCiudad" placeholder="Nueva ciudad" />
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <button type="button" class="btn btn-secondary ms-2" onclick='volverAlMenu()'>Volver</button>
+      </form>
+      <div id="mensajeCuenta" class="alert alert-success mt-3 d-none">
+        ¡Los cambios han sido guardados exitosamente!
+      </div>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+
+</body>
+</html>

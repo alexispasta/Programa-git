@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel RRHH</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+   
+</head>
+<body>
+    <div class="sidebar">
+        <h3>SGRH</h3>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#" onclick="volverAlMenu()">Página de inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="mostrarSeccion('quejas')">Quejas y sugerencias</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" onclick="mostrarSeccion('cuenta')">Información de Cuenta</a></li>
+            <li class="nav-item"><a class="nav-link" href="index.html">Salir</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h4>Rol: RRHH</h4>
+        <div class="notification">
+    <strong>Canal de notificaciones</strong>
+    <p id="notificationText">
+        Se le informa a todo el personal que, por motivos administrativos, mañana se ingresará 1 hora más tarde.
+    </p>
+
+    <!-- Cuadro de texto oculto inicialmente -->
+    <textarea id="notificationEditor" style="display: none; width: 100%; height: 80px;"></textarea>
+
+    <!-- Botones -->
+    <div class="notification-actions mt-2">
+        <button id="editBtn" onclick="editNotification()">Editar</button>
+        <button id="saveBtn" onclick="saveNotification()" style="display: none;">Guardar</button>
+    </div>
+</div>
+        <div id="opciones">
+            <h5 class="mt-4">Opciones</h5>
+            <button class="btn btn-primary btn-sm d-block w-auto mb-2" onclick="mostrarSeccion('empleados')">Gestión de empleados</button>
+            <button class="btn btn-primary btn-sm d-block w-auto mb-2" onclick="mostrarSeccion('asistencia')">Gestión de asistencia</button>
+            <button class="btn btn-primary btn-sm d-block w-auto mb-2" onclick="mostrarSeccion('reportes')">Gestión de reportes</button>
+            <button class="btn btn-primary btn-sm d-block w-auto mb-2" onclick="mostrarSeccion('nomina')">Gestión de nomina</button>
+            <button class="btn btn-primary btn-sm d-block w-auto mb-2" onclick="mostrarSeccion('permisos')">Gestión de permisos</button>
+
+        </div>
+
+        <!-- Secciones dinámicas -->
+        <div id="empleados" class="section-content mt-4">
+            <section class="empleados-section p-4 bg-white rounded shadow-sm mt-5">
+                <h2 class="mb-4">Gestión de Empleados</h2>
+                <table class="table table-striped">
+                  <thead class="table-dark">
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Documento</th>
+                      <th>Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Juan Pérez</td>
+                      <td>12345678</td>
+                      <td>
+                        <button class="btn btn-primary btn-sm editar-btn"
+                          data-id="1"
+                          data-nombre="Juan Pérez"
+                          data-documento="12345678"
+                          data-fecha="2021-03-15"
+                          data-estado="activo"
+                          data-correo="juan.perez@email.com"
+                          data-salario="2500000"
+                          data-cargo="Analista"
+                          data-eps="SURA">
+                          Editar
+                        </button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Ana Gómez</td>
+                      <td>87654321</td>
+                      <td>
+                        <button class="btn btn-primary btn-sm editar-btn"
+                          data-id="2"
+                          data-nombre="Ana Gómez"
+                          data-documento="87654321"
+                          data-fecha="2022-01-10"
+                          data-estado="inactivo"
+                          data-correo="ana.gomez@email.com"
+                          data-salario="3200000"
+                          data-cargo="Coordinadora"
+                          data-eps="Nueva EPS">
+                          Editar
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              
+              <!-- Información del empleado -->
+              <div id="infoEmpleado" style="display: none;" class="mt-4 bg-light p-4 rounded shadow-sm">
+                <h6>Información del empleado</h6>
+                <form>
+                  <div class="mb-2">
+                    <label>ID del empleado (no editable)</label>
+                    <input type="text" class="form-control" id="empId" disabled>
+                  </div>
+                  <div class="mb-2">
+                    <label>Nombre</label>
+                    <input type="text" class="form-control" id="empNombre">
+                  </div>
+                  <div class="mb-2">
+                    <label>Documento</label>
+                    <input type="text" class="form-control" id="empDocumento">
+                  </div>
+                  <div class="mb-2">
+                    <label>Fecha de contratación</label>
+                    <input type="date" class="form-control" id="empFechaContratacion">
+                  </div>
+                  <div class="mb-2">
+                    <label>Estado</label>
+                    <select class="form-control" id="empEstado">
+                      <option value="activo">Activo</option>
+                      <option value="inactivo">Inactivo</option>
+                    </select>
+                  </div>
+                  <div class="mb-2">
+                    <label>Correo electrónico</label>
+                    <input type="email" class="form-control" id="empCorreo">
+                  </div>
+                  <div class="mb-2">
+                    <label>Salario</label>
+                    <input type="number" class="form-control" id="empSalario">
+                  </div>
+                  <div class="mb-2">
+                    <label>Cargo</label>
+                    <input type="text" class="form-control" id="empCargo">
+                  </div>
+                  <div class="mb-2">
+                    <label>EPS</label>
+                    <input type="text" class="form-control" id="empEPS">
+                  </div>
+                  <button type="submit" class="btn btn-success btn-sm mt-2" onclick="guardarCambiosCuentamsg()">Guardar Cambios</button>
+
+                  <button type="button" class="btn btn-info btn-sm mt-2" onclick="document.getElementById('inputArchivo').click()">Cargar Documentos</button>
+
+                  <button type="button" class="btn btn-warning btn-sm mt-2">Descargar Documentos</button>
+
+                  <!-- Input de archivo oculto -->
+                  <input type="file" id="inputArchivo" style="display: none;" onchange="archivoCargado()">
+                </form>
+              </div>
+              <button class="btn btn-secondary btn-sm mt-3" onclick="volverAlMenu()">Volver</button>
+              
+        </div>
+        <div id="asistencia" class="section-content mt-4">
+            <section class="asistencia-section p-4 bg-light rounded shadow-sm">
+                <h2 class="mb-4">Gestión de Asistencia</h2>
+                <form>
+                  <div class="mb-3">
+                    <label for="fechaAsistencia" class="form-label">Fecha:</label>
+                    <input type="date" class="form-control" id="fechaAsistencia" required>
+                  </div>
+                  <table class="table table-bordered table-hover">
+                    <thead class="table-secondary">
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Documento</th>
+                        <th>Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Juan Pérez</td>
+                        <td>12345678</td>
+                        <td>
+                          <select class="form-select">
+                            <option>Presente</option>
+                            <option>Ausente</option>
+                            <option>Permiso</option>
+                            <option>Retardo</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Ana Gómez</td>
+                        <td>87654321</td>
+                        <td>
+                          <select class="form-select">
+                            <option>Presente</option>
+                            <option>Ausente</option>
+                            <option>Permiso</option>
+                            <option>Retardo</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <!-- Agrega más filas según sea necesario -->
+                    </tbody>
+                  </table>
+                  <button type="submit" class="btn btn-success">Guardar Asistencia</button>
+                </form>
+              </section>
+        
+            <button class="btn btn-secondary btn-sm mt-2" onclick="volverAlMenu()">Volver</button>
+        </div>
+        <div id="reportes" class="section-content mt-4">
+            <h5>Gestión de reportes</h5>
+            <h6>Historial de reportes</h6>
+            <ul class="list-group mb-3">
+                <li class="list-group-item">[2025-05-12] Falta injustificada - Carlos Pérez</li>
+                <li class="list-group-item">[2025-05-10] Queja por retraso - Laura Sánchez</li>
+            </ul>
+        
+            <button class="btn btn-primary btn-sm" onclick="mostrarFormularioReporte()">Generar nuevo reporte</button>
+        
+            <div id="formularioReporte" style="display: none;" class="mt-4">
+                <h6>Nuevo reporte</h6>
+                <form>
+                    <div class="mb-2">
+                        <label>Asunto</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="mb-2">
+                        <label>Documento del empleado (opcional)</label>
+                        <input type="text" class="form-control">
+                    </div>
+                    <div class="mb-2">
+                        <label>Texto del reporte</label>
+                        <textarea class="form-control" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success btn-sm">Enviar reporte</button>
+                </form>
+            </div>
+        
+            <button class="btn btn-secondary btn-sm mt-3" onclick="volverAlMenu()">Volver</button>
+        </div>
+        <!-- Sección Gestión de Nómina -->
+<!-- Sección Gestión de Nómina -->
+<div id="nomina" class="section-content mt-4">
+  <section class="nomina-section p-4 bg-white rounded shadow-sm mt-5">
+    <h2 class="mb-4">Gestión de Nómina</h2>
+    <table class="table table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Nombre</th>
+          <th>Documento</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Juan Pérez</td>
+          <td>12345678</td>
+          <td>
+            <button class="btn btn-primary btn-sm editar-nomina-btn"
+              data-id="1"
+              data-nombre="Juan Pérez"
+              data-cedula="12345678"
+              data-cuenta="1234567890"
+              data-salario="2500000"
+              data-auxilio="140606"
+              data-horas_extra="4"
+              data-bonificacion="50000"
+              data-descuentos="20000"
+              data-comisiones="0"
+              data-viaticos="0"
+              data-retencion="0"
+              data-prestamos="0"
+              data-embargos="0"
+              data-incapacidades="0"
+              data-vacaciones="0"
+              data-cesantias="0"
+              data-intereses_cesantias="0"
+              data-prima="0"
+            >
+              Editar Nómina
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Información Detallada de Nómina -->
+  <div id="infoNomina" style="display: none;" class="mt-4 bg-light p-4 rounded shadow-sm">
+    <h4 class="mb-3">Información de Nómina</h4>
+    <form onsubmit="guardarCambiosNomina(event)">
+      <!-- Datos del empleado -->
+      <fieldset class="mb-4">
+        <legend>Datos del Empleado</legend>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label>Nombre</label>
+            <input type="text" class="form-control" id="nomNombre" disabled>
+          </div>
+          <div class="col-md-6">
+            <label>Cédula</label>
+            <input type="text" class="form-control" id="nomCedula" disabled>
+          </div>
+          <div class="col-md-6">
+            <label>Cuenta Bancaria</label>
+            <input type="text" class="form-control" id="nomCuenta" disabled>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Ingresos -->
+      <fieldset class="mb-4">
+        <legend>Ingresos</legend>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label>Salario Base</label>
+            <input type="number" class="form-control" id="nomSalario">
+          </div>
+          <div class="col-md-6">
+            <label>Auxilio de Transporte</label>
+            <input type="number" class="form-control" id="nomAuxilio">
+          </div>
+          <div class="col-md-6">
+            <label>Horas Extra</label>
+            <input type="number" class="form-control" id="nomHorasExtra">
+          </div>
+          <div class="col-md-6">
+            <label>Bonificaciones</label>
+            <input type="number" class="form-control" id="nomBonificacion">
+          </div>
+          <div class="col-md-6">
+            <label>Comisiones</label>
+            <input type="number" class="form-control" id="nomComisiones">
+          </div>
+          <div class="col-md-6">
+            <label>Viáticos</label>
+            <input type="number" class="form-control" id="nomViaticos">
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Deducciones -->
+      <fieldset class="mb-4">
+        <legend>Deducciones</legend>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label>Descuentos</label>
+            <input type="number" class="form-control" id="nomDescuentos">
+          </div>
+          <div class="col-md-6">
+            <label>Retención en la Fuente</label>
+            <input type="number" class="form-control" id="nomRetencion">
+          </div>
+          <div class="col-md-6">
+            <label>Préstamos de Empresa</label>
+            <input type="number" class="form-control" id="nomPrestamos">
+          </div>
+          <div class="col-md-6">
+            <label>Embargos Judiciales</label>
+            <input type="number" class="form-control" id="nomEmbargos">
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Otras variables -->
+      <fieldset class="mb-4">
+        <legend>Variables Adicionales</legend>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label>Incapacidades (días)</label>
+            <input type="number" class="form-control" id="nomIncapacidades">
+          </div>
+          <div class="col-md-6">
+            <label>Días de Vacaciones</label>
+            <input type="number" class="form-control" id="nomVacaciones">
+          </div>
+          <div class="col-md-6">
+            <label>Cesantías</label>
+            <input type="number" class="form-control" id="nomCesantias">
+          </div>
+          <div class="col-md-6">
+            <label>Intereses de Cesantías</label>
+            <input type="number" class="form-control" id="nomInteresesCesantias">
+          </div>
+          <div class="col-md-6">
+            <label>Prima de Servicios</label>
+            <input type="number" class="form-control" id="nomPrima">
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Resultado -->
+      <div class="mt-4">
+        <h5>Total a Pagar:</h5>
+        <input type="text" class="form-control fw-bold text-success" id="nomTotal" readonly>
+      </div>
+
+      <div class="mt-3">
+        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+        <button type="button" class="btn btn-secondary" onclick="ocultarInfoNomina()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  <button class="btn btn-secondary btn-sm mt-3" onclick="volverAlMenu()">Volver</button>
+</div>
+
+
+        <!-- Gestión de permisos -->
+        <div id="permisos" class="section-content mt-4">
+            <h5>Gestión de permisos</h5>
+            <h6>Solicitudes</h6>
+            <ul class="list-group mb-3" id="listaSolicitudes">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Juan Pérez - 2025-05-20
+                    <div>
+                        <button class="btn btn-success btn-sm me-1" onclick="aprobar(this)">Aprobar</button>
+                        <button class="btn btn-danger btn-sm" onclick="rechazar(this)">Rechazar</button>
+                    </div>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Laura Díaz - 2025-05-22
+                    <div>
+                        <button class="btn btn-success btn-sm me-1" onclick="aprobar(this)">Aprobar</button>
+                        <button class="btn btn-danger btn-sm" onclick="rechazar(this)">Rechazar</button>
+                    </div>
+                </li>
+            </ul>
+            <h6>Aprobados</h6>
+            <ul class="list-group mb-3" id="aprobados"></ul>
+            <h6>Desaprobados</h6>
+            <ul class="list-group mb-3" id="desaprobados"></ul>
+            <button class="btn btn-secondary btn-sm" onclick="volverAlMenu()">Volver</button>
+        </div>
+        <div id="quejas" class="section-content mt-4">
+            <h5>Quejas y sugerencias</h5>
+            <p>Envíanos tus comentarios para mejorar el sistema.</p>
+        
+            <form id="formQuejas" onsubmit="enviarQueja(event)">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Asunto:</label>
+                    <input type="text" class="form-control" id="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="mensaje" class="form-label">Mensaje:</label>
+                    <textarea class="form-control" id="mensaje" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+                <button type="button" class="btn btn-secondary ms-2" onclick="volverAlMenu()">Volver</button>
+            </form>
+        
+            <div id="mensajeConfirmacion" class="alert alert-success mt-3 d-none">
+                ¡Gracias por tu mensaje! Ha sido enviado correctamente.
+            </div>
+        </div>
+        <div id="cuenta" class="section-content mt-4">
+            <h5>Información de Cuenta</h5>
+            <p>Consulta y modifica los datos de tu cuenta.</p>
+        
+            <form id="formCuenta" onsubmit="guardarCambiosCuenta(event)">
+                <div class="mb-3">
+                    <label class="form-label">Nombres actuales: <strong>Juan Carlos</strong></label>
+                    <input type="text" class="form-control" id="nuevoNombres" placeholder="Nuevos nombres">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Apellidos actuales: <strong>Gómez Rodríguez</strong></label>
+                    <input type="text" class="form-control" id="nuevoApellidos" placeholder="Nuevos apellidos">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Correo electrónico actual: <strong>juan.gomez@example.com</strong></label>
+                    <input type="email" class="form-control" id="nuevoCorreo" placeholder="Nuevo correo electrónico">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Teléfono actual: <strong>3216549870</strong></label>
+                    <input type="text" class="form-control" id="nuevoTelefono" placeholder="Nuevo teléfono">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Dirección actual: <strong>Calle 45 #12-34</strong></label>
+                    <input type="text" class="form-control" id="nuevaDireccion" placeholder="Nueva dirección">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Fecha de nacimiento actual: <strong>1990-06-15</strong></label>
+                    <input type="date" class="form-control" id="nuevaFechaNacimiento">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Ciudad actual: <strong>Bogotá</strong></label>
+                    <input type="text" class="form-control" id="nuevaCiudad" placeholder="Nueva ciudad">
+                </div>
+        
+                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                <button type="button" class="btn btn-secondary ms-2" onclick="volverAlMenu()">Volver</button>
+            </form>
+        
+            <div id="mensajeCuenta" class="alert alert-success mt-3 d-none">
+                ¡Los cambios han sido guardados exitosamente!
+            </div>
+        </div>
+
+        <script src="scripts.js"></script>
+
+</body>
+</html>

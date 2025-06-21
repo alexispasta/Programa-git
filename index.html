@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SIRH</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex items-center justify-center h-screen bg-gray-200">
+
+    <div class="w-full max-w-4xl flex shadow-lg rounded-lg overflow-hidden h-[90vh]">
+        
+        <!-- Sección Izquierda -->
+        <div class="w-1/2 bg-gray-900 text-white flex flex-col items-center justify-center p-8">
+            <img src="public/img/mi_logo.png" alt="Logo" class="w-40 mb-4">
+            <h2 class="text-lg font-bold text-center">SISTEMA DE GESTIÓN DE RECURSOS HUMANOS</h2>
+            <p class="text-sm text-center mt-2">Todo lo que necesitas para el control de tu empresa.</p>
+        </div>
+
+        <!-- Sección Derecha -->
+        <div id="right-panel" class="w-1/2 bg-white flex flex-col justify-center p-8">
+            <h2 class="text-2xl font-semibold mb-6">Ingresar</h2>
+
+            <label class="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+            <input type="email" id="email" placeholder="usuario@ejemplo.com" class="w-full px-4 py-2 border rounded mt-1 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900">
+            
+            <label class="block text-sm font-medium text-gray-700 mt-4">Contraseña</label>
+            <input type="password" id="password" placeholder="********" class="w-full px-4 py-2 border rounded mt-1 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-gray-900">
+
+            <button onclick="mostrarRoles()" class="w-full bg-gray-900 text-white py-2 mt-6 rounded hover:bg-gray-700 transition">Log in</button>
+
+            <a href="#" onclick="mostrarRecuperar()" class="text-sm text-gray-600 mt-4 text-center block hover:underline">¿Olvidó su contraseña?</a>
+            <a href="#" onclick="mostrarOpciones()" class="text-sm text-gray-600 mt-4 text-center block hover:underline">Crear cuenta</a>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+
+    
+
+</body>
+</html>
